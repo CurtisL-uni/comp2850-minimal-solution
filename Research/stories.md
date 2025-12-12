@@ -39,7 +39,7 @@
 **Inclusion risk**: Cognitive, ADHD
 **Type**: Job story
 
-## Story S6: Persistent Error Messages (No-JS)
+## Story S5: Persistent Error Messages (No-JS)
 **Situation**: When JavaScript is disabled (corporate firewall, data-saving mode) and I submit invalid data
 **Motivation**: I want error messages to persist after page reload
 **Outcome**: So I can understand what went wrong and correct it

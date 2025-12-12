@@ -1,10 +1,12 @@
 # COMP2850 HCI Assessment: Evaluation & Redesign Portfolio
 
+NOTE INCOMPLETE NEEDS RESUBMISSION
 > **📥 Download this template**: [COMP2850-submission-template.md](/downloads/COMP2850-submission-template.md)
 > Right-click the link above and select "Save link as..." to download the template file.
 
-**Student**: [Your name and student ID]
-**Submission date**: [DD/MM/YYYY]
+**Student**: [Curtis Lau] [id: 201825792]
+
+**Submission date**: [12/12/2025]
 **Academic Year**: 2025-26
 
 ---
@@ -24,42 +26,166 @@
 
 ### Link to Needs-Finding (LO2)
 
-**Week 6 Job Story #1**:
-> [Paste your Week 6 job story here - the one that informed your first task]
+**Story S1: Keyboard Accessibility**
 
-**How Task 1 tests this**:
-[1 sentence explaining link]
+Situation: When interacting with the UI
+
+Motivation: i want all features to work efficiently with just keyboard
+
+Outcome: so no mouse required i can work using my laptop
+
+Underlying need: Because when i am travelling and working i only carry laptop
+
+Inclusion risk: Motor impairment, RSI, temporary disability, keyboard-only preference
+
+WCAG: 2.1.1 Keyboard A, 2.1.3 Keyboard (No Exception, AAA)
+
+Task Link: All tasks must be sucessfully completed keyboard only variant to show all functions work
+
+
+**Story S2: Dynamic and Persistent UI**
+
+Situation: When I submit a form (add/edit/delete task)
+
+Motivation: I want immediate, explicit confirmation that the action succeeded
+
+Outcome: So I can trust the interface without refreshing to verify
+
+Underlying need: Because uncertainty about save status causes anxiety and inefficient workarounds
+
+Inclusion risk: Cognitive, Screen reader, Low digital literacy
+
+WCAG: 4.1.3 Status Messages (AA)
+
+Task Link: Actions for T1, T2, T3, T4 are all confirmed at top of site when executed
+
+**Story S3: Text to Speach**
+Situation: When I am interacting with UI(buttons, text boxes)
+
+Motivation: I want them all to be labelled correctly
+
+Outcome: So it is compatible with a screen reader
+
+Underlying need: As having audio confirmation gives me comfort
+
+Inclusion risk: Screen reader, Cognitive
+
+Type: Job story
+
+WCAG: 2.4.6 Headings and Labels (AA), 2.4.2 Page Titled (A)
+
+Task Link: All tasks must be sucessfully completed screen reader variant to show all functions can be completed using a screen reader
+
+
+**Story S4: Task List**
+
+Situation: When I have added a task
+
+Motivation: I want to be able to see a list of all the tasks in order of time added
+
+Outcome: So I can keep track of which ones have priority
+
+Underlying need: Because sometimes i cant keep mental track and forget some tasks
+
+Inclusion risk: Cognitive, ADHD
+
+Task Link: T0 ensures tasks are all displayed correctly seperated into pages, T3 ensures ordered by recent
+
+**Story S5: Error Messages (No-JS)**
+
+Situation: When JavaScript is disabled (corporate firewall, data-saving mode) and I submit invalid data
+
+Motivation: I want an error message to show on screen
+
+Outcome: So I can understand what went wrong and correct it
+
+Underlying need: Because errors can cause stress and anxiety
+
+Inclusion risk: Cognitive
+
+WCAG: 3.3.1 Error Identification (A), 3.3.3 Error Suggestion (AA)
+
+Task Link: T3 displays an error message when adding a task with name less than 3 chars long
 
 ---
 
 ### Evaluation Tasks (4-5 tasks)
 
-#### Task 1 (T1): [Task Name]
+#### Task 0 (T0): [Paginated task list]
 
 - **Scenario**: 
-"
-- **Action**: [Specific instruction - what to tell participant]
-- **Success**: [Observable outcome - how you know it worked]
-- **Target time**: [e.g., <10 seconds]
-- **Linked to**: [Week 6 Job Story #X]
+  - "You have been asked to see all current tasks including the older ones on other pages"
+- **Setup**
+  - Prepopulate task list of over 10 tasks (10 fit on a single page)
+- **Action**: 
+  - Scroll through all pages until you have seen all the tasks
+- **Success**:
+  - Participant used the "next" button to go to next page
+  - Participant correctly identifies when all pages have been displayed
+- **Target time**: 
+  - Less than 6 seconds
+- **Linked to**: [Week 6 Job Story 4]
 
-#### Task 2 (T2): [Task Name]
+#### Task 1 (T1): [Filter Tasks]
+
+- **Scenario**: 
+  - "You have been asked to filter all current tasks by "worksheet""
+- **Setup**
+  - Prepopulate task list with 8 tasks, some of the same type including 3 worksheet tasks
+  - Example: Maths Worksheet 1, Programming Project, Hardware Worksheet 1, Maths Worksheet 2,  ....
+- **Action**: 
+  - Type "worksheet" into filter and resulting list of tasks
+- **Success**:
+  - Participant types "worksheet" into filter box
+  - Participant correctly identifies 3 worksheet tasks
+- **Target time**: 
+  - Less than 5 seconds
+- **Linked to**: [Week 6 Job Story 2]
+
+#### Task 2 (T2): [Edit Task]
 
 - **Scenario**:
-- **Action**:
+  - "You realised you spelt made a spelling mistake in "Ecomomics esay" task and need to correct it"
+- **Setup**
+  - Task list has one task "Ecomomics esay"
+- **Action**: 
+  - Use edit button on "Ecomomics esay" to change name to "Economics essay"
 - **Success**:
+  - Finds and uses edit button on correct task
+  - Correctly renames task
 - **Target time**:
-- **Linked to**:
+  - Less than 10 seconds
+- **Linked to**: [Week 6 Job Story 2]
 
-#### Task 3 (T3): [Task Name]
+#### Task 3 (T3): [Add Task]
 
-- **Scenario**:
+- **Scenario**: 
+  - "A new task called "t1" has been assigned and you must add this task to your list"
+- **Action**: 
+  - Try click add task button to add tasked named "t1"
+  - Click add task button and type "task1"
+- **Success**: 
+  - Adding task t1 should produce error message at the top of site
+  - New task appears at the end of list with no errors
+- **Target time**:
+  - Less than 15 seconds
+- **Linked to**: [Week 6 Job Story 5] [Week 6 Job Story 2]
+
+#### Task 4 (T4): [Delete Task]
+
+- **Scenario**: 
+  - A task in the list needs removing
+- **Setup**
+  - Task list has one task "Essay 1"
 - **Action**:
+  - Use the delete button to remove Essay 1
 - **Success**:
+  - List doesnt show Essay 1 and no errors
 - **Target time**:
-- **Linked to**:
+  - Less than 5 seconds
+- **Linked to**: [Week 6 Job Story 2]
 
-[Add Tasks 4-5 as needed]
+
 
 ---
 
