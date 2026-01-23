@@ -1,6 +1,5 @@
 # COMP2850 HCI Assessment: Evaluation & Redesign Portfolio
 
-NOTE INCOMPLETE NEEDS RESUBMISSION
 > **📥 Download this template**: [COMP2850-submission-template.md](/downloads/COMP2850-submission-template.md)
 > Right-click the link above and select "Save link as..." to download the template file.
 
