@@ -271,19 +271,4 @@ select:focus {
   #status {
     display: none;
   }
-}
-
-/* ========================================
-   Print Styles
-   ======================================== */
-button.add-task,
-form button[type="submit"] {
-  width: fit-content !important;
-  display: inline-block !important;
-  padding: 0.4em 0.8em !important;
-  font-size: 1rem;
-  line-height: 1.2;
-  background-color: #d32f2f !important; /* Red background */
-  color: #fff !important; /* White text for contrast */
-  border-color: #b71c1c !important; /* Optional: darker red border */
-}
+} 
