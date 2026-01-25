@@ -199,7 +199,7 @@ Task Link: T3 displays an error message when adding a task with name less than 3
 - [ ] "I may take screenshots and notes. I'll remove any identifying information."
 - [ ] "Do you consent to participate?" [Wait for verbal yes]
 
-**Recorded consent timestamp**: [e.g., "P1 consented 22/11/2025 14:05"]
+**Recorded consent timestamp**: [P1 consented 14/01/2026 13:56] [P2 consented 16/01/2026 12:30] [P3 consented 19/01/2026 15:01]
 
 ---
 
@@ -209,18 +209,18 @@ Task Link: T3 displays an error message when adding a task with name less than 3
 
 | Finding | Data Source | Observation (Quote/Timestamp) | WCAG | Impact (1-5) | Inclusion (1-5) | Effort (1-5) | Priority |
 |---------|-------------|------------------------------|------|--------------|-----------------|--------------|----------|
-| SR errors not announced | metrics.csv L47-49 + P2 notes 14:23 | P2: "I didn't hear any error" | 3.3.1 Level A | 5 | 5 | 3 | 7 |
-| [Your finding 2] | [Link to metrics.csv line OR pilot notes] | [Participant quote + timestamp] | [WCAG criterion] | [1-5] | [1-5] | [1-5] | [Score] |
-| [Your finding 3] | | | | | | | |
-| [Your finding 4] | | | | | | | |
-| [Your finding 5] | | | | | | | |
+| SR errors not announced | metrics.csv L48-50 + P2 notes T4 | P3: "I didn't hear the delete button even though im hovering over it" | 3.3.1 Level A | 5 | 5 | 2 | 8 |
+| Hard to navigate without mouse | P2 notes general observation | P2: "I cant really see where i am at the outline is almost same colour as the button | 2.4.7 Level AA | 4 | 5 | 3 | 6 |
+| Cant mark tasks as complete |P1 notes general observation| "So when i finish a task do i just delete it"| -| 5| 1| 5| 1|
+|  | | | | | | | |
+
 
 **Priority formula**: (Impact + Inclusion) - Effort
 
 **Top 3 priorities for redesign**:
-1. [Finding #X - Priority score Y]
-2. [Finding #X - Priority score Y]
-3. [Finding #X - Priority score Y]
+1. [Finding #1 - Priority score 8]
+2. [Finding #2 - Priority score 6]
+3. [Finding #3 - Priority score 1]
 
 ---
 
@@ -230,17 +230,16 @@ Task Link: T3 displays an error message when adding a task with name less than 3
 
 ```csv
 ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
-2025-11-22T14:18:23.456Z,P1_a7f3,req_001,T1_add,success,,890,200,on
-[Your metrics data here - all rows from Logger.kt output]
+
+[see metrics.csv attached in evidence folder]
 ```
 
 **Participant summary**:
-- **P1**: [Variant - e.g., "Standard mouse + HTMX"]
-- **P2**: [Variant - e.g., "Keyboard-only, HTMX-on"]
-- **P3** (if applicable): [Variant]
-- **P4** (if applicable): [Variant]
+- **P1**: [Variant Standard mouse + HTMX"]
+- **P2**: [Variant Keyboard-only, HTMX-on"]
+- **P3** (if applicable): [Variant Screen reader, HTMX-on]
 
-**Total participants**: [n=2, 3, or 4]
+**Total participants**: [n=3]
 
 ---
 
@@ -250,7 +249,7 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 ### Fix 1: [Fix Name]
 
-**Addresses finding**: [Finding #X from table above]
+**Addresses finding**: [Finding #1 from table above]
 
 **Before** ([file path:line number]):
 ```kotlin
