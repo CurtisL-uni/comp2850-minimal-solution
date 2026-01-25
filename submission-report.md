@@ -254,13 +254,29 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 **Before** ([file path:line number]):
 ```kotlin
 // ❌ Problem code
-[Paste your original code here]
+[// no css file]
 ```
 
 **After** ([file path:line number]):
 ```kotlin
-// ✅ Fixed code
-[Paste your improved code here]
+// ✅ Fixed code added css file with:
+[*:focus {
+  outline: 3px solid #f32222;
+  outline-offset: 2px;
+}
+
+/* Remove default outline, replace with custom */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 3px solid #f32222;
+  outline-offset: 2px;
+}]
+
+// In flask html base
+  <link rel="stylesheet" href="/static/css/custom.css"> 
 ```
 
 **What changed**: [1 sentence - what you added/removed/modified]
