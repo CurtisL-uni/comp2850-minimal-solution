@@ -5,7 +5,7 @@
 
 **Student**: [Curtis Lau] [id: 201825792]
 
-**Submission date**: [12/12/2025]
+**Submission date**: [26/01/2026]
 **Academic Year**: 2025-26
 
 ---
@@ -17,7 +17,7 @@
 - [Y] I confirm all participants gave informed consent
 - [Y] I confirm this work is my own (AI tools used for code assistance are cited below)
 
-**AI tools used** (if any): [e.g., "Copilot for route handler boilerplate (lines 45-67 in diffs)"]
+**AI tools used** (if any): N/A
 
 ---
 
@@ -209,8 +209,8 @@ Task Link: T3 displays an error message when adding a task with name less than 3
 
 | Finding | Data Source | Observation (Quote/Timestamp) | WCAG | Impact (1-5) | Inclusion (1-5) | Effort (1-5) | Priority |
 |---------|-------------|------------------------------|------|--------------|-----------------|--------------|----------|
-| SR errors not announced | metrics.csv L48-50 + P2 notes T4 | P3: "I didn't hear the delete button even though im hovering over it" | 3.3.1 Level A | 5 | 5 | 2 | 8 |
-| Hard to navigate without mouse | P2 notes general observation | P2: "I cant really see where i am at the outline is almost same colour as the button | 2.4.7 Level AA | 4 | 5 | 3 | 6 |
+| SR button names not announced | metrics.csv L48-50 + P2 notes T4 | P3: "I didn't hear the delete button even though im hovering over it" | 4.1.2 Level A | 5 | 5 | 2 | 8 |
+| Hard to navigate without mouse | P2 notes general observation | P2: "I cant really see where i am at the outline is almost same colour as the button" | 2.4.7 Level AA | 4 | 5 | 3 | 6 |
 | Cant mark tasks as complete |P1 notes general observation| "So when i finish a task do i just delete it"| -| 5| 1| 5| 1|
 |  | | | | | | | |
 
@@ -247,25 +247,24 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 **Instructions**: Show before/after code for 1-3 fixes. Link each to findings table.
 
-### Fix 1: [Fix Name]
+### Fix 1: [No mouse navigation]
 
-**Addresses finding**: [Finding #1 from table above]
+**Addresses finding**: [Finding #2 from table above]
 
-**Before** ([file path:line number]):
+**Before** (src/main/resources/templates/base.peb):
 ```kotlin
 // ❌ Problem code
-[// no css file]
+[// no css file linked in base]
 ```
 
-**After** ([file path:line number]):
+**After** (src/main.resources/static/css/custom.css: line 49 - 65):
 ```kotlin
 // ✅ Fixed code added css file with:
-[*:focus {
+*:focus {
   outline: 3px solid #f32222;
   outline-offset: 2px;
 }
 
-/* Remove default outline, replace with custom */
 button:focus,
 a:focus,
 input:focus,
@@ -273,43 +272,51 @@ textarea:focus,
 select:focus {
   outline: 3px solid #f32222;
   outline-offset: 2px;
-}]
+}
 
 // In flask html base
   <link rel="stylesheet" href="/static/css/custom.css"> 
 ```
 
-**What changed**: [1 sentence - what you added/removed/modified]
+**What changed**: Added a bolder outline to all buttons when using tab
 
-**Why**: [1 sentence - which WCAG criterion or usability issue this fixes]
+**Why**: This fixes WCAG 2.4.7 as no mouse users were unable to clearly see which point they were at but this has now been highlighted in a contrasting colour
 
-**Impact**: [1-2 sentences - how this improves UX, who benefits]
-
----
-
-### Fix 2: [Fix Name]
-
-**Addresses finding**: [Finding #X]
-
-**Before**:
-```kotlin
-[Original code]
-```
-
-**After**:
-```kotlin
-[Fixed code]
-```
-
-**What changed**:
-
-**Why**:
-
-**Impact**:
+**Impact**: This improves the navigation for no mouse keyboard only users
 
 ---
 
-[Add Fix 3 if applicable]
+### Fix 2: [Making buttons same size as text]
+
+**Addresses finding**: [Finding #1]
+
+**Before** (src/main/resources/templates/base.peb):
+```kotlin
+[ /* Override Pico.css button color for WCAG 1.4.3 AA compliance */
+    button[type="submit"],
+    button {
+      color: white !important; /* White text on blue background for better contrast */
+    }
+  </style>]
+```
+
+**After** (src/main.resources/static/css/custom.css: line 276 - 279):
+```kotlin
+button {
+  width: auto !important;
+  display: inline-block !important;
+}
+```
+
+**What changed**: Now the buttons are same size as text no empty space
+
+**Why**: NVDA doesnt play audio over empty space but expected if over a button
+
+**Impact**: Now when users hover over a button using NVDA it will always read the text
+
+---
+
+
 
 ---
 
@@ -322,34 +329,34 @@ select:focus {
 | Check | Criterion | Level | Result | Notes |
 |-------|-----------|-------|--------|-------|
 | **Keyboard (5)** | | | | |
-| K1 | 2.1.1 All actions keyboard accessible | A | [pass/fail] | [e.g., "Tested Tab/Enter on all buttons"] |
-| K2 | 2.4.7 Focus visible | AA | [pass/fail] | [e.g., "2px blue outline on all interactive elements"] |
-| K3 | No keyboard traps | A | [pass/fail] | [e.g., "Can Tab through filter, edit, delete without traps"] |
-| K4 | Logical tab order | A | [pass/fail] | [e.g., "Top to bottom, left to right"] |
-| K5 | Skip links present | AA | [pass/fail/n/a] | [e.g., "Skip to main content works"] |
+| K1 | 2.1.1 All actions keyboard accessible | A | [pass] | Tested Tab on all buttons |
+| K2 | 2.4.7 Focus visible | AA | [pass] | 2px RED outline on all interactive elements (FIXED in fix#1)|
+| K3 | No keyboard traps | A | [pass] | Can Tab through filter, edit, delete without traps |
+| K4 | Logical tab order | A | [pass] | Starts top to bottom, left to right |
+| K5 | Skip links present | AA | [pass] | Skip to main content works |
 | **Forms (3)** | | | | |
-| F1 | 3.3.2 Labels present | A | [pass/fail] | [e.g., "All inputs have <label> or aria-label"] |
-| F2 | 3.3.1 Errors identified | A | [pass/fail] | [e.g., "Errors have role=alert (FIXED in Fix #1)"] |
-| F3 | 4.1.2 Name/role/value | A | [pass/fail] | [e.g., "All form controls have accessible names"] |
+| F1 | 3.3.2 Labels present | A | [pass] | All inputs have labels |
+| F2 | 3.3.1 Errors identified | A | [pass] | Errors have role=alert |
+| F3 | 4.1.2 Name/role/value | A | [pass] | All form controls have accessible names (FIXED in fix#2)|
 | **Dynamic (3)** | | | | |
-| D1 | 4.1.3 Status messages | AA | [pass/fail] | [e.g., "Status div has role=status"] |
-| D2 | Live regions work | AA | [pass/fail] | [e.g., "Tested with NVDA, announces 'Task added'"] |
-| D3 | Focus management | A | [pass/fail] | [e.g., "Focus moves to error summary after submit"] |
+| D1 | 4.1.3 Status messages | AA | [pass] | Status messages display at top of screen |
+| D2 | Live regions work | AA | [pass] | Tested with error, announces 'Alert' |
+| D3 | Focus management | A | [pass] | Prompt to fill in field |
 | **No-JS (3)** | | | | |
-| N1 | Full feature parity | — | [pass/fail] | [e.g., "All CRUD ops work without JS"] |
-| N2 | POST-Redirect-GET | — | [pass/fail] | [e.g., "No double-submit on refresh"] |
-| N3 | Errors visible | A | [pass/fail] | [e.g., "Error summary shown in no-JS mode"] |
+| N1 | Full feature parity | — | [pass] | All CRUD ops work without JS |
+| N2 | POST-Redirect-GET | — | [fail] | double-submit on refresh |
+| N3 | Errors visible | A | [pass] | Error summary shown in no-JS mode |
 | **Visual (3)** | | | | |
-| V1 | 1.4.3 Contrast minimum | AA | [pass/fail] | [e.g., "All text 7.1:1 (AAA) via CCA"] |
-| V2 | 1.4.4 Resize text | AA | [pass/fail] | [e.g., "200% zoom, no content loss"] |
-| V3 | 1.4.11 Non-text contrast | AA | [pass/fail] | [e.g., "Focus indicator 4.5:1"] |
+| V1 | 1.4.3 Contrast minimum | AA | [pass] | All text 7.1:1 (AAA) via CCA |
+| V2 | 1.4.4 Resize text | AA | [pass] | Text size 200% increased |
+| V3 | 1.4.11 Non-text contrast | AA | [pass] | Focus indicator 4.5:1 |
 | **Semantic (3)** | | | | |
-| S1 | 1.3.1 Headings hierarchy | A | [pass/fail] | [e.g., "h1 → h2 → h3, no skips"] |
-| S2 | 2.4.1 Bypass blocks | A | [pass/fail] | [e.g., "<main> landmark, <nav> for filter"] |
-| S3 | 1.1.1 Alt text | A | [pass/fail] | [e.g., "No images in interface OR all have alt"] |
+| S1 | 1.3.1 Headings hierarchy | A | [pass] | "h1 → h2 → h3, no skips |
+| S2 | 2.4.1 Bypass blocks | A | [pass] | Skip to main content |
+| S3 | 1.1.1 Alt text | A | [pass] | No images in interface OR all have alt |
 
-**Summary**: [X/20 pass], [Y/20 fail]
-**Critical failures** (if any): [List any Level A fails]
+**Summary**:  19/20 pass, 1/20 fail
+**Critical failures** n/a
 
 ---
 
@@ -359,17 +366,16 @@ select:focus {
 
 | Metric | Before (Week 9, n=X) | After (Week 10, n=Y) | Change | Target Met? |
 |--------|----------------------|----------------------|--------|-------------|
-| SR error detection | [e.g., 0/2 (0%)] | [e.g., 2/2 (100%)] | [e.g., +100%] | [✅/❌] |
-| Validation error rate | [e.g., 33%] | [e.g., 0%] | [e.g., -33%] | [✅/❌] |
-| Median time [Task X] | [e.g., 1400ms] | [e.g., 1150ms] | [e.g., -250ms] | [✅/❌] |
-| WCAG [criterion] pass | [fail] | [pass] | [— ] | [✅/❌] |
+| SR error detection | 0/1 (0%) | [e.g., 1/1 (100%)] | [+100%] | [✅] |
+
+| WCAG 2.4.7 | fail | pass | [— ] | [✅] |
 
 **Re-pilot details**:
-- **P5** (post-fix): [Variant - e.g., "Screen reader user, NVDA + keyboard"] - [Date piloted]
-- **P6** (if applicable): [Variant] - [Date]
+- **P3** (post-fix): repilot already familiar with system, date: 22/01
+
 
 **Limitations / Honest reporting**:
-[If metrics didn't improve or only modestly: explain why. Small sample size? Wrong fix? Needs more iteration? Be honest - valued over perfect results.]
+Very limited results as only tested NVDA with 1 pilot and this pilot is also an expert pilot
 
 ---
 
@@ -381,50 +387,108 @@ select:focus {
 
 | Filename | What it shows | Context/Link to finding |
 |----------|---------------|-------------------------|
-| before-sr-error.png | Error message without role="alert" | Finding #1 - SR errors not announced |
-| after-sr-error.png | Error message WITH role="alert" added | Fix #1 verification |
-| regression-axe-report.png | axe DevTools showing 0 violations | Verification Part A |
-| [your-screenshot-3.png] | [Description] | [Which finding/fix this supports] |
+| before-sr.png | Button size bigger than text | Finding #1 - SR button name not announced when hovering blue non text area of button|
+| after-sr.png | Button size same as text | Fix #2 verification |
+| beforeOutline.png | outline colour similar to button colour | Finding #2 not clear visibilty outline|
+| afterOutline.png | Red clear contrast to highlight position | Fix #1 verification|
 
 **PII check**:
-- [ ] All screenshots cropped to show only relevant UI
-- [ ] Browser bookmarks/tabs not visible
-- [ ] Participant names/emails blurred or not visible
+- [Y] All screenshots cropped to show only relevant UI
+- [Y] Browser bookmarks/tabs not visible
+- [Y] Participant names/emails blurred or not visible
 
 ---
 
 ### Pilot Notes
 
-**Instructions**: Attach pilot notes as separate files (P1-notes.md, P2-notes.md, etc.). Summarize key observations here.
+**Pilot 1 (standard js on)**
 
-**P1** ([ Variant - e.g., "Standard mouse + HTMX"]):
-- **Key observation 1**: [Quote + timestamp - e.g., "Struggled with filter button (09:47)"]
-- **Key observation 2**: [Quote + timestamp]
+P1 consented 14/01/2026 13:56
 
-**P2** ([Variant]):
-- **Key observation 1**: [Quote + timestamp]
-- **Key observation 2**: [Quote + timestamp]
+T0 - 6.57 seconds
+pilot had no problems very confident
 
-[Repeat for P3, P4 if applicable]
+T1 - 9.49 seconds
+noticed took longer than expected as after they filtered they also pressed the "apply filter" button which was unnecessary as the filter updates in real time
 
----
+T2 - 9.75 seconds
+pilot very confident with task
+
+T3 -22.01 seconds
+took them 2 attempts of t1 to find error message displayed at top of screen
+quote "why cant i add this task" recording timestamp 12.30
+
+T4 - 6.36 seconds
+participant said they liked the pop up to verify deletion
+
+Key observation and quote : After testing participant asked about completing task "So when i finish a task do i just delete it" recording timestamp 17.23
+
+**Pilot 2 (no mouse variant)**
+
+P2 consented 16/01/2026 12:30
+
+T0 - 12.19 seconds
+observed participant used tab to navigate without a mouse going through each button
+
+T1 - 32.41 seconds
+participant tabbed past the filter button and had to cycle though every button in order to go back
+
+T2 - 10 seconds
+very confident
+
+T3 - 12 seconds
+liked the status message displayed at the top showing errors or sucessful actions
+
+T4 - 9.87 seconds
+
+Key observation and quote: outline colour same as button colour hard to navigate "I cant really see where i am at the outline is almost same colour as the button" recording timestamp 43.12
+
+
+**Pilot 3 (screen reader variant)**
+
+P3 consented 19/01/2026 15:01
+
+T0 - 10.55 seconds
+very confident
+
+T1 - 10.12 seconds
+liked the sound queue when using a text box and buttons
+
+T2 - 13.17 seconds
+very confident
+
+T3 - 17.49 seconds
+NVDA screen reader automatically read out errors and updates without hovering over
+Says "alert" when error occurs which gave participant more direct answer
+
+T4 - 14.80 seconds
+Participant noticed clicking the button doesnt necessarily lead to an audio output if not hovering over text "I didn't hear the delete button even though im hovering over it" recording timestamp 13.56
+
+**Pilot 3 expert**
+
+T4 - 5.40 seconds
+quote "great looks like it can read the button now" recording timestamp 00.03
+
+**Flagged anomalies**
+
+js mode starts as off when reloading the page 
 
 ## Evidence Chain Example (Full Trace)
 
 **Instructions**: Pick ONE finding and show complete evidence trail from data → fix → verification.
 
-**Finding selected**: [e.g., "Finding #1 - SR errors not announced"]
+**Finding selected**: Finding #1 - SR not announced for button
 
 **Evidence trail**:
-1. **Data**: metrics.csv lines 47-49 show P2 (SR user) triggered validation_error 3 times
-2. **Observation**: P2 pilot notes timestamp 14:23 - Quote: "I don't know if it worked, didn't hear anything"
-3. **Screenshot**: before-sr-error.png shows error message has no role="alert" or aria-live
-4. **WCAG**: 3.3.1 Error Identification (Level A) violation - errors not programmatically announced
-5. **Prioritisation**: findings-table.csv row 1 - Priority score 7 (Impact 5 + Inclusion 5 - Effort 3)
-6. **Fix**: implementation-diffs.md Fix #1 - Added role="alert" + aria-live="assertive" to error span
-7. **Verification**: verification.csv Part A row F2 - 3.3.1 now PASS (tested with NVDA)
-8. **Before/after**: verification.csv Part B - SR error detection improved from 0% to 100%
-9. **Re-pilot**: P5 (SR user) pilot notes - "Heard error announcement immediately, corrected and succeeded"
+1. **Data**: metrics.csv lines 48-50 show P3 (SR user) took around 16 seconds to complete task which is over target time of 5 seconds
+2. **Observation**: P2 pilot notes - Quote: "I didn't hear the delete button even though im hovering over it"
+3. **Screenshot**: before-sr.png shows there is large button space without text and unable to be read
+4. **WCAG**: 4.1.2 name/role/value (Level A) violation 
+5. **Prioritisation**: findings-table.csv row 1 - Priority score 8 (Impact 5 + Inclusion 5 - Effort 2)
+6. **Fix**: implementation-diffs.md Fix #2 - decreased button size to match text
+7. **Verification**: verification.csv Part A row F3 - 4.2.1 now PASS (tested with NVDA)
+8. **Before/after**: verification.csv Part B - SR detection improved from 0% to 100%
+9. **Re-pilot**: P3 (SR user) pilot notes - "great looks like it can read the button now"
 
 **Complete chain**: Data → Observation → Interpretation → Fix → Verification ✅
 
@@ -435,29 +499,29 @@ select:focus {
 Before submitting, verify:
 
 **Files**:
-- [ ] This completed template (submission-template.md)
-- [ ] metrics.csv (or pasted into Section 3)
-- [ ] Pilot notes (P1-notes.md, P2-notes.md, etc. OR summarised in Section 6)
-- [ ] Screenshots folder (all images referenced above)
-- [ ] Privacy statement signed (top of document)
+- [Y] This completed template (submission-template.md)
+- [Y] metrics.csv (evidence folder)
+- [Y] Pilot notes (summarised in Section 6)
+- [Y] Screenshots folder (all images referenced above)
+- [Y] Privacy statement signed (top of document)
 
 **Evidence chains**:
-- [ ] findings-table.csv links to metrics.csv lines AND/OR pilot notes timestamps
-- [ ] implementation-diffs.md references findings from table
-- [ ] verification.csv Part B shows before/after for fixes
+- [Y] findings-table.csv links to metrics.csv lines AND/OR pilot notes timestamps
+- [Y] implementation-diffs.md references findings from table
+- [Y] verification.csv Part B shows before/after for fixes
 
 **Quality**:
-- [ ] No PII in screenshots (checked twice!)
-- [ ] Session IDs anonymous (P1_xxxx format, not real names)
-- [ ] Honest reporting (limitations acknowledged if metrics didn't improve)
-- [ ] WCAG criteria cited specifically (e.g., "3.3.1" not just "accessibility")
+- [Y] No PII in screenshots (checked twice!)
+- [Y] Session IDs anonymous (P1_xxxx format, not real names)
+- [Y] Honest reporting (limitations acknowledged if metrics didn't improve)
+- [Y] WCAG criteria cited specifically (e.g., "3.3.1" not just "accessibility")
 
 **Pass criteria met**:
-- [ ] n=2+ participants (metrics.csv has 2+ session IDs)
-- [ ] 3+ findings with evidence (findings-table.csv complete)
-- [ ] 1-3 fixes implemented (implementation-diffs.md shows code)
-- [ ] Regression complete (verification.csv has 20 checks)
-- [ ] Before/after shown (verification.csv Part B has data)
+- [Y] n=2+ participants (metrics.csv has 2+ session IDs)
+- [Y] 3+ findings with evidence (findings-table.csv complete)
+- [Y] 1-3 fixes implemented (implementation-diffs.md shows code)
+- [Y] Regression complete (verification.csv has 20 checks)
+- [Y] Before/after shown (verification.csv Part B has data)
 
 ---
 

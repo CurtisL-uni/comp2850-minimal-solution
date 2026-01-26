@@ -271,4 +271,9 @@ select:focus {
   #status {
     display: none;
   }
-} 
+}
+
+button {
+  width: auto !important;
+  display: inline-block !important;
+}
